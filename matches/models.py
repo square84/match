@@ -23,7 +23,7 @@ class MatchManager(models.Manager):
             obj.check_update()
             return obj, False
         elif not obj and obj_2:
-            obj2.check_update()
+            obj_2.check_update()
             return obj_2, False
         else:
             new_instance = self.create(user_a=user_a, user_b=user_b)
@@ -33,6 +33,17 @@ class MatchManager(models.Manager):
             # new_instance.question_answered = question_answered
             # new_instance.save()
             return new_instance, True
+
+    def update_all(self):
+        queryset = self.all()
+        now = timezone.now()
+        offset = now - datetime.timedelta(hours=12)
+        offset2 = now - datetime.timedelta(hours=36)
+        queryset.filter(updated__gt=offset2).filter(updated__lte=offset)
+        print (queryset)
+        if queryset.count > 0:
+            for i in queryset:
+                i.check_update()
 
 
 class Match(models.Model):
@@ -58,7 +69,7 @@ class Match(models.Model):
         self.question_answered = question_answered
         self.save()
 
-    def check_updated(self):
+    def check_update(self):
         now = timezone.now()
         offset = now - datetime.timedelta(hours=12)
         if self.updated <= offset:
