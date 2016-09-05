@@ -1,12 +1,12 @@
 from decimal import Decimal
 from django.contrib.auth import get_user_model
 
-from .models import UserAnswer
+from questions.models import UserAnswer
 
-User = get_user_model()
-
-user = User.objects.all()
-all_user_answer = UserAnswer.objects.all().order_by("user__id")
+# User = get_user_model()
+#
+# user = User.objects.all()
+# all_user_answer = UserAnswer.objects.all().order_by("user__id")
 
 
 def get_points(user_a,user_b):
@@ -38,8 +38,8 @@ def get_points(user_a,user_b):
     return percent,num_question
 
 
-get_points(jmitchel3,khalessi)
-a = get_points(khalessi,jmitchel3)
-b = get_points(jmitchel3,khalessi)
-
-match_percentage = "%.2f" %((Decimal(a[0])*Decimal(b[0])) ** (1/Decimal(b[1])))
+# get_points(jmitchel3,khalessi)
+# a = get_points(khalessi,jmitchel3)
+# b = get_points(jmitchel3,khalessi)
+#
+# match_percentage = "%.2f" %((Decimal(a[0])*Decimal(b[0])) ** (1/Decimal(b[1])))
