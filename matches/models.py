@@ -1,5 +1,5 @@
 import datetime
-
+from decimal import Decimal
 from django.utils import timezone
 from django.conf import settings
 from django.db import models
@@ -56,6 +56,11 @@ class Match(models.Model):
 
     def __unicode__(self):
         return "%.2f" % (self.match_decimal)
+
+    @property
+    def get_percent(self):
+        new_decimal = self.match_decimal * Decimal(100)
+        return "%.2f%%" % (new_decimal)
 
     objects = MatchManager()
 
