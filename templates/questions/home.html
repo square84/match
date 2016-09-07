@@ -10,13 +10,17 @@
         <h3>Matches</h3>
         {% for match_user,percent in matches %}
             <div class="col-sm-4">
-                {{ match_user }}
-                {% if match_user.profile.picture %}
-                    <img src="{{ match_user.profile.picture.url }}" class="img-responsive" />
-                {% else %}
-                    <img src="{%  static 'img/profile_default.jpg' %}" class="img-responsive" />
-                {% endif %}
+                <a href="{{ match_user.profile.get_absolute_url }}">
+                    {{ match_user }}
+
+                    {% if match_user.profile.picture %}
+                        <img src="{{ match_user.profile.picture.url }}" class="img-responsive" />
+                    {% else %}
+                        <img src="{%  static 'img/profile_default.jpg' %}" class="img-responsive" />
+                    {% endif %}
+                </a>
                 {{ percent }}
+
             </div>
         {% endfor %}
     </div>
