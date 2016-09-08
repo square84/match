@@ -12,4 +12,14 @@
         <img src="{% static 'img/profile_default.jpg' %}" class="img-responsive" >
     {% endif %}
 </div>
+
+{% if jobs %}
+    <div class="row">
+        <ul>
+            {% for job in jobs %}
+                <li>{{ job.position }} in {{ job.location }} at {{ job.employer_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 {%  endblock %}
