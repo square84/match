@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from localflavor.us.models import USStateField
 
 # Create your models here.
 User = settings.AUTH_USER_MODEL
@@ -24,6 +25,8 @@ class Location(models.Model):
 class Employer(models.Model):
     name = models.CharField(max_length=250)
     location = models.ForeignKey(Location,null=True,blank=True)
+    #city=
+    #state = USStateField(null=True,blank=True)
     #website
     #lat-lang
 
