@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from matches.models import Match
+from django.forms.models import modelformset_factory
 from .forms import UserJobForm
-from .models import Profile
+from .models import Profile, UserJob
 
 # Create your views here.
 User = get_user_model()
@@ -37,3 +38,25 @@ def job_add(request):
         "title":title,
     }
     return render(request, "forms.html", context)
+
+@login_required
+def jobs_edit(request):
+    title= "Update Jobs"
+    UserJobFormset = modelformset_factory(UserJob,form=UserJobForm)
+    queryset = UserJob.objects.filter(user=request.user)
+    formset = UserJobFormset(request.POST or None,queryset=queryset)
+    if formset.is_valid():
+        instances = formset.save(commit=False)
+        for instance in instances:
+            instance.user = request.user
+            instance.save()
+    # form = UserJobForm(request.POST or None)
+    # if form.is_valid():
+    #     instance = form.save(commit=False)
+    #     instance.user = request.user
+    #     instance.save()
+    context = {
+        "formset":formset,
+        "title":title,
+    }
+    return render(request, "formset.html", context)
