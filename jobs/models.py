@@ -24,7 +24,7 @@ class Location(models.Model):
         return self.name
 
 class Employer(models.Model):
-    name = models.CharField(max_length=250,unique=True)
+    name = models.CharField(max_length=250)
     location = models.ForeignKey(Location,null=True,blank=True)
     #city=
     #state = USStateField(null=True,blank=True)
